@@ -1,4 +1,3 @@
 .venv
 .env
 .streamlit/secrets.toml
-ejercicio1.py
