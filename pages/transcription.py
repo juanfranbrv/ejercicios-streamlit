@@ -3,11 +3,7 @@ import os
 from dotenv import load_dotenv
 import openai
 
-# Cargar las variables del archivo .env
-load_dotenv()
-
-# Acceder a las variables de entorno
-key = os.getenv("OPENAI_API_KEY")
+key = st.secrets["OPENAI_API_KEY"]
 
 # Verificar si la clave API está presente
 if not key:
@@ -32,14 +28,14 @@ if fichero_audio:
         try:
             with st.spinner('Transcribiendo el audio, por favor espera...'):
                 # Realizar la transcripción utilizando Whisper
-                transcripcion = openai.Audio.transcribe(
+                transcripcion = openai.audio.transcriptions.create(
                     model='whisper-1',
                     file=fichero_audio
                 )
 
             # Mostrar la transcripción
             st.subheader("Transcripción de audio")
-            st.markdown(transcripcion['text'])
+            st.markdown(transcripcion.text)
 
         except Exception as e:
             st.error(f"Error al transcribir el audio: {e}")
