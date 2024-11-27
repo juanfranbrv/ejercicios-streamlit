@@ -32,7 +32,7 @@ st.markdown("""Crea una página de bienvenida interactiva que
 - Incluye un enlace adicional al repositorio de la aplicación""")
 
 
-# st.page_link("pages\ejercicio1.py", label=" Ver solución", icon="🧐")
+st.page_link("pages/ejercicio1.py", label=" Ver solución", icon="🧐")
 
 st.write("")
 st.subheader("Ejercicio 2a : Contador de pulsaciones")
