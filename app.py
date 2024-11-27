@@ -32,7 +32,7 @@ st.markdown("""Crea una página de bienvenida interactiva que
 - Incluye un enlace adicional al repositorio de la aplicación""")
 
 
-st.page_link("pages\ejercicio1.py", label=" Ver solución", icon="🧐")
+# st.page_link("pages\ejercicio1.py", label=" Ver solución", icon="🧐")
 
 st.write("")
 st.subheader("Ejercicio 2a : Contador de pulsaciones")
@@ -47,7 +47,7 @@ st.markdown("<hr style='border: 0.1px solid #000; margin: 0px 0px'>", unsafe_all
 st.write("""Crear una aplicación que muestre 5 botones (rojo, morado, amarillo, verde). Al pusar uno de los botones debe mostrarse una imagen que predomine ese color. Al princpio de la ejecucion, cuando todavia no se ha pulsado ninguno, no debe mostrarse ninguna imagen.
 
 Añade mas tarde un boton mas que debe mostrar globos. pero el que salgan los globos no debe borrar la imagen que se esta viendo o tampoco debe borrarse si vamos y volvemos de la pagina """)
-st.page_link("pages/ejercicio3a.py", label=" Ver solución", icon="🧐")
+# st.page_link("pages/ejercicio3a.py", label=" Ver solución", icon="🧐")
 
 st.write("")
 st.subheader("Ejercicio 2b : Contador de pulsaciones con estado")
