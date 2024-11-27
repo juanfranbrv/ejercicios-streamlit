@@ -1,36 +1,18 @@
 import streamlit as st
 
-# Cambiar el tipo de letra y tamaño globalmente con CSS
-st.markdown(
-    """
-    <style>
-    /* Cambiar el tipo de letra y tamaño para todo el cuerpo */
-    html, body, [class*="css"] {
-        font-family: 'Montserrat';
-        font-size: 20px; 
+st.set_page_config(
+    page_title="ejercicios-st",
+    layout="wide",
+    page_icon="🛠️",
+    initial_sidebar_state="expanded",
+    menu_items={
+        'Get Help': 'https://www.ejemplo.com/help',
+        'Report a bug': "https://www.ejemplo.com/bug",
+        'About': "# Esta es una aplicación de ejemplo"
     }
-    /* Ajustar encabezados si es necesario */
-    h1, h2, h3, h4, h5, h6 {
-        font-family: 'Montserrat'
-    }
-
-     /* Personalizar tamaño de encabezados */
-    h1 {
-        font-size: 28px; /* Ajusta el tamaño del encabezado h1 */
-    }
-    h2 {
-        font-size: 24px; /* Ajusta el tamaño del encabezado h2 */
-    }
-    h3 {
-        font-size: 20px; /* Ajusta el tamaño del encabezado h3 */
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
 )
 
-
-
+st.sidebar.header("Ejercicios de Streamlite")
 st.title("Ejercicios")
 
 st.subheader("Ejercicio 1: Página de Bienvenida Interactiva")
@@ -77,4 +59,4 @@ st.write("")
 st.subheader("Ejercicio 3b : Galeria de imagenes con estado")
 st.markdown("<hr style='border: 0.1px solid #000; margin: 0px 0px'>", unsafe_allow_html=True)
 st.write("""Resuelve el ejercicio 3a con st.state""")
-st.page_link("ejercicio3b.py", label=" Ver solución", icon="🧐")
+st.page_link("pages/ejercicio3b.py", label=" Ver solución", icon="🧐")
