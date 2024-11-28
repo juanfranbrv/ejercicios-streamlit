@@ -2,10 +2,9 @@
 # IMPORTAMOS LAS LIBRERIAS
 # ════════════════════════════════════════════════════════════════════
 import streamlit as st
-from st_audiorec import st_audiorec
+
 
 from groq import Groq
-
 import base64
 
 
