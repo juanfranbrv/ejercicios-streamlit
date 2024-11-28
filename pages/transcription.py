@@ -2,31 +2,22 @@
 # IMPORTAMOS LAS LIBRERIAA
 # ════════════════════════════════════════════════════════════════════
 import streamlit as st
+
+
 from groq import Groq
 
 
 # ════════════════════════════════════════════════════════════════════
-#      RECUPERAR LA CLAVE DE API DE LAS VARIABLES DEL FICHERO .env
+#      RECUPERAR LA CLAVE DE API DE LAS VARIABLES DEL FICHERO .toml
 # ════════════════════════════════════════════════════════════════════
-# Recuperar la clave de API de las variables de entorno
+# Recuperar la clave de API desde `st.secrets`, ya sea local o en línea
+try:
+    GROQ_API_KEY = st.secrets["GROQ_API_KEY"]
 
-# En desarrollo
-
-load_dotenv()
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
-
-
-# En producción, usar secrets
-
-# st.secrets()
-
-
-# Verificar si la clave API está presente
-if not key:
+except KeyError:
     st.error(
-        "API Key no encontrada. Asegúrate de tener una variable 'GROQ_API_KEY' en tu archivo .env"
+        "No se encontró la clave de API en `st.secrets`. Verifica la configuración."
     )
-    st.stop()
 
 
 # ══════════════════════════════════
@@ -44,31 +35,62 @@ cliente = Groq(api_key=GROQ_API_KEY, timeout=30)
 # Título de la aplicación
 st.title("Transcripción de audio usando Whisper")
 
-# Subir el archivo de audio
-fichero_audio = st.file_uploader("Sube un fichero de audio", type=["mp3", "wav", "m4a"])
+# Crear dos tabs (pestañas)
+tab1, tab2 = st.tabs(["Subiir fichero de audio", "Grabar fichero de audio"])
 
-if fichero_audio:
-    # Mostrar el reproductor de audio
-    st.audio(fichero_audio)
+# Contenido de la primera pestaña
+with tab1:
 
+    # Subir el archivo de audio
+    fichero_audio = st.file_uploader(
+        "Sube un fichero de audio", type=["mp3", "wav", "m4a"]
+    )
+
+    if fichero_audio:
+        # Mostrar el reproductor de audio
+        st.audio(fichero_audio)
+
+        # Botón para iniciar la transcripción
+        if st.button("Transcribir audio subido"):
+            try:
+                with st.spinner("Transcribiendo el audio, por favor espera..."):
+                    # Realizar la transcripción utilizando Whisper
+                    transcripcion = cliente.audio.transcriptions.create(
+                        file=fichero_audio,  # Pasa directamente el archivo binario
+                        model="whisper-large-v3-turbo",  # Modelo para la transcripción
+                        prompt="Transcribe este texto que está en castellano",  # Opcional
+                        language="es",  # Opcional
+                    )
+
+                # Mostrar la transcripción
+                st.subheader("Transcripción de audio")
+                st.markdown(transcripcion.text)
+
+            except Exception as e:
+                st.error(f"Error al transcribir el audio: {e}")
+
+# Contenido de la segunda pestaña
+with tab2:
+
+    fichero_audio = st.audio_input("Grabar un mensaje de voz")
+
+
+    if fichero_audio:
     # Botón para iniciar la transcripción
-    if st.button("Transcribir Audio"):
-        try:
-            with st.spinner("Transcribiendo el audio, por favor espera..."):
-                # Realizar la transcripción utilizando Whisper
-                transcripcion = cliente.audio.transcriptions.create(
-                    model="whisper-large-v3-turbo",  # Modelo para la transcripción
-                    prompt="Transcribe este texto que está en castellano",  # Opcional
-                    language="es",  # Opcional
-                    temperature=0.0,  # Opcional
-                )
+        if st.button("Transcribir Audio grabado"):
+            try:
+                with st.spinner("Transcribiendo el audio, por favor espera..."):
+                    # Realizar la transcripción utilizando Whisper
+                    transcripcion = cliente.audio.transcriptions.create(
+                        file=fichero_audio,  # Pasa directamente el archivo binario
+                        model="whisper-large-v3-turbo",  # Modelo para la transcripción
+                        prompt="Transcribe este texto que está en castellano",  # Opcional
+                        language="es",  # Opcional
+                    )
 
-            # Mostrar la transcripción
-            st.subheader("Transcripción de audio")
-            st.markdown(transcripcion.text)
+                # Mostrar la transcripción
+                st.subheader("Transcripción de audio")
+                st.markdown(transcripcion.text)
 
-        except Exception as e:
-            st.error(f"Error al transcribir el audio: {e}")
-
-
-
+            except Exception as e:
+                st.error(f"Error al transcribir el audio: {e}")

@@ -1,0 +1,12 @@
+# ════════════════════════════════════════════
+# Configuración general de la aplicación
+# ════════════════════════════════════════════
+
+[theme]
+base = "dark"             # Tema base: "light" (claro) o "dark" (oscuro)
+primaryColor="#b6dbff"         # Color principal de la aplicación
+# backgroundColor = "#0f1724" # Color de fondo de la aplicación
+# secondaryBackgroundColor = "#FfF2F6" # Color del fondo secundario (como la barra lateral)
+# textColor = "#333333"      # Color del texto
+font = "monospace"        # Tipografía: "sans serif", "serif", "monospace"
+
